@@ -7,28 +7,36 @@
 
 import SwiftUI
 
-@MainActor class DelayedUpdater: ObservableObject {
-    var value = 0 {
-        willSet {
-            //manually send so can add extra functionality rather than using @Published to automatically send when the value updates
-            objectWillChange.send()
-        }
-    }
-    
-    init() {
-        for i in 1...10 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
-                self.value += 1
-            }
-        }
-    }
-}
-
 struct ContentView: View {
-    @StateObject private var updater = DelayedUpdater()
+    @State private var output = ""
     
     var body: some View {
-        Text("Value is \(updater.value)")
+        Text(output)
+            .task {
+                await fetchReadings()
+            }
+    }
+    func fetchReadings() async {
+        let fetchTask = Task { () -> String in
+            let url = URL(string: "https://hws.dev/readings.json")!
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let readings = try JSONDecoder().decode([Double].self, from: data)
+            return "Found \(readings.count) readings"
+        }
+        //result will hold the entire success or entire error inside of itself which can then be stored and passed until ready to use
+        let result = await fetchTask.result
+//        do {
+//            output = try result.get()
+//        } catch {
+//            print("Download error")
+//        }
+        
+        switch result {
+        case .success(let str):
+            output = str
+        case .failure(let error):
+            output = "Download Error: \(error.localizedDescription)"
+        }
     }
 }
 
