@@ -7,39 +7,26 @@
 
 import SwiftUI
 
-@MainActor class User: ObservableObject {
-    @Published var name = "Taylor Swift"
-}
-
-struct EditView: View {
-    @EnvironmentObject var user: User
-    
-    var body: some View {
-        TextField("Name", text: $user.name)
-    }
-}
-
-struct DisplayView: View {
-    //automatically looks for User instance in Environment and uses what it finds
-    //if no user instance in Environment, program will crash
-    @EnvironmentObject var user: User
-    
-    var body: some View {
-        Text(user.name)
-    }
-}
-
 struct ContentView: View {
-    @StateObject var user = User()
+    @State private var selectedTab = "One"
     
     var body: some View {
-        VStack {
-            EditView()
-            DisplayView()
+        //TabView is always top layer; it contains NavigationView, List...etc
+        TabView(selection: $selectedTab){
+            Text("Tab1")
+                .onTapGesture {
+                    selectedTab = "Two"
+                }
+                .tabItem {
+                    Label("One", systemImage: "star")
+                }
+                .tag("One")
+            Text("Tab2")
+                .tabItem {
+                    Label("Two", systemImage: "circle")
+                }
+                .tag("Two")
         }
-        //places an object into Environment so any child view can have access to it
-        //effectively uses the data type as the key
-        .environmentObject(user)
     }
 }
 
