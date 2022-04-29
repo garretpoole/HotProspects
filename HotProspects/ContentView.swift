@@ -38,6 +38,7 @@ struct ContentView: View {
             DisplayView()
         }
         //places an object into Environment so any child view can have access to it
+        //effectively uses the data type as the key
         .environmentObject(user)
     }
 }
