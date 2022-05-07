@@ -8,33 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var backgroundColor = Color.red
-    
     var body: some View {
-        VStack {
-            Text("hello")
-                .padding()
-                .background(backgroundColor)
-            
-            Text("Change Color")
-                .padding()
-            //if used, used them consistently
-            //keep list short (3 max)
-            //dont repeat options user can see elsewhere in UI
-            //hidden so dont make it important
-                .contextMenu {
+        List {
+            Text("Taylor")
+            //hidden to user by default so dont hide crucial actions in them
+                .swipeActions {
                     Button(role: .destructive) {
-                        backgroundColor = .red
+                        print("Deleting")
                     } label: {
-                        Label("Red", systemImage: "checkmark.circle.fill")
-                            .foregroundColor(.red)
+                        Label("Delete", systemImage: "minus.circle")
                     }
-                    Button("Green") {
-                        backgroundColor = .green
+                }
+                .swipeActions(edge: .leading) {
+                    Button {
+                        print("Pinning")
+                    } label: {
+                        Label("Pin", systemImage: "pin")
                     }
-                    Button("Blue") {
-                        backgroundColor = .blue
-                    }
+                    .tint(.orange)
                 }
         }
     }
