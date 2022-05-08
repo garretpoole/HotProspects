@@ -41,7 +41,6 @@
 		60BAB1BC281C74F900909F85 = {
 			isa = PBXGroup;
 			children = (
-				60984ABE282794CD00597798 /* Prospects.swift */,
 				60BAB1C7281C74F900909F85 /* HotProspects */,
 				60BAB1C6281C74F900909F85 /* Products */,
 			);
@@ -60,6 +59,7 @@
 			children = (
 				60BAB1C8281C74F900909F85 /* HotProspectsApp.swift */,
 				60BAB1CA281C74F900909F85 /* ContentView.swift */,
+				60984ABE282794CD00597798 /* Prospects.swift */,
 				60984ABA28278C7100597798 /* ProspectsView.swift */,
 				60984ABC28278C7A00597798 /* MeView.swift */,
 				60BAB1CC281C74FE00909F85 /* Assets.xcassets */,
