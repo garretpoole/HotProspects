@@ -16,15 +16,36 @@ class Prospect: Identifiable, Codable {
 }
 
 @MainActor class Prospects: ObservableObject {
-    @Published var people: [Prospect]
+    @Published private(set) var people: [Prospect]
+    let saveKey = "SavedData"
     
     init() {
+        if let data = UserDefaults.standard.data(forKey: saveKey) {
+            if let decoded = try? JSONDecoder().decode([Prospect].self, from: data) {
+                people = decoded
+                return
+            }
+        }
+        //no saved data
         people = []
+    }
+    
+    //dont allow other code to call save() directly, should only be called within add/toggle
+    private func save() {
+        if let encoded = try? JSONEncoder().encode(people) {
+            UserDefaults.standard.set(encoded, forKey: saveKey)
+        }
+    }
+    
+    func add(_ propsect: Prospect) {
+        people.append(propsect)
+        save()
     }
     
     func toggle(_ prospect: Prospect) {
         //call before changing values to get right animations
         objectWillChange.send()
         prospect.isContacted.toggle()
+        save()
     }
 }
