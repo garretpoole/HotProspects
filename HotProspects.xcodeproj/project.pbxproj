@@ -294,6 +294,7 @@
 				DEVELOPMENT_TEAM = S589JWKMMK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HotProspects/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to scan QRCodes";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We want to save your QRCode";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -325,6 +326,7 @@
 				DEVELOPMENT_TEAM = S589JWKMMK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HotProspects/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to scan QRCodes";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We want to save your QRCode";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
